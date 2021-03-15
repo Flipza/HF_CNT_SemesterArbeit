@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Protokoll Page</title>
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<script src="https://code.jquery.com/jquery-latest.js"></script>
+	</head>
+	<body class="loggedin">
+		<nav class="navtop">
+			<div>
+			<h1>Welcome to this Website</h1>
+				<a href="home.html"><i class="fas fa-user-circle"></i>Home</a>
+				<a href="profile.html"><i class="fas fa-user-circle"></i>Profile</a>
+				<a href="protokoll.html"><i class="fas fa-user-circle"></i>Prüfprotokoll</a>
+			</div>
+		</nav>
+        <br></br>
+        <div>
+		<h1>Deckblatt</h1>
+            <form action="insert_db.php" method="POST">
+                <label for="serialnumbers">Serial Number: </label>
+                <select name="serialnumber" class="dropdown_sn">
+                </select>
+            	<br></br>
+				<p>Serialnumber: <input type='text'  size='40' id='sn_res' name='sn_res'/> </p>
+				<p>Manufacturer: <input type='text'  size='40' id='man_res' name='man_res'/> </p>
+				<p>Model: <input type='text'  size='40' id='mod_res' name='mod_res'/> </p>
+				<p>Year: <input type='text'  size='40' id='year_res' name='year_res'/> </p>
+				<p>Size: <input type='text'  size='40' id='size_res' name='size_res'/> </p>
+				<p>Color: <input type='text'  size='40' id='color_res' name='color_res'/> </p>
+				<button type="submit" id="btn_erf">Erfassen</button>
+			</form>
+			<br></br>
+		<h1>Maintenance Glider Protokol</h1>
+			<h3>General</h3>
+			<label for="location">Location: </label>
+			<select name="location" class="dropdown">
+                </select>
+			<p>Date: <input type='date' id='date_res' value='' </p>
+			<p>Standard: <input type='text'  size='40' id='stand_res' name='stand_res' readonly/> </p>
+			<label for="inspector">Inspector: </label>
+			<select name="inspector" class="dropdown">
+                </select>
+			<p>Serialnumber: <input type='text'  size='40' id='sn_res_ro' name='sn_res' readonly/> </p>
+			<p>Manufacturer: <input type='text'  size='40' id='man_res_ro' name='man_res' readonly/> </p>
+			<p>Model: <input type='text'  size='40' id='mod_res_ro' name='mod_res' readonly/> </p>
+			<p>Year: <input type='text'  size='40' id='year_res_ro' name='year_res' readonly/> </p>
+			<p>Size: <input type='text'  size='40' id='size_res_ro' name='size_res' readonly/> </p>
+			<p>Color: <input type='text'  size='40' id='color_res_ro' name='color_res' readonly/> </p>
+		</div>
+    </body>
+
+</html>
