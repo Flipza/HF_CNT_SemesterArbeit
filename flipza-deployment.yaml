@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - image: flipza/semesterarbeit
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: semesterarbeit
         env:
         - name: DATABASE_HOST
