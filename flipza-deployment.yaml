@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/name: semesterarbeit
+  name: semesterarbeit
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: semesterarbeit
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: semesterarbeit    
+    spec:
+      containers:
+      - image: flipza/semesterarbeit
+        imagePullPolicy: IfNotPresent
+        name: semesterarbeit
+        env:
+        - name: DATABASE_HOST
+          value: localhost
+        - name: DATABASE_USER 
+          value: dbuser         
+        - name: DATABASE_NAME 
+          value: phplogin
+        - name: DATABASE_PASS 
+          valueFrom:
+           secretKeyRef:
+            name: database-pass
+            key: password  

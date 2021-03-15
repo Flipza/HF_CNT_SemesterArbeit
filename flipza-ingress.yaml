@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: semesterarbeit
+  labels:
+    app: semesterarbeit
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /semesterarbeit/
+        pathType: Prefix
+        backend:
+          service:
+            name: semesterarbeit
+            port:
+              number: 80
