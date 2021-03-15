@@ -1,3 +1,4 @@
 FROM php:7.0-apache
-COPY *.css /var/www/html/
-COPY *.html /var/www/html/
+RUN mkdir /var/www/html/servicetool
+COPY *.css /var/www/html/servicetool/
+COPY *.html /var/www/html/servicetool/
