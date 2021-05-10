@@ -27,7 +27,4 @@ spec:
         - name: DATABASE_NAME 
           value: phplogin
         - name: DATABASE_PASS 
-          valueFrom:
-           secretKeyRef:
-            name: database-pass
-            key: password  
+          value: PASSWORD
