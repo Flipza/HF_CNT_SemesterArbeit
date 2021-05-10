@@ -28,3 +28,13 @@ spec:
           value: phplogin
         - name: DATABASE_PASS 
           value: PASSWORD
+        # Volumes im Container
+        volumeMounts:
+        - mountPath: "/usr/www/html/myspace"
+          subPath: myspace
+          name: "web-storage"
+      # Volumes in Host
+      volumes:
+      - name: web-storage
+        persistentVolumeClaim:
+          claimName: data-claim 
