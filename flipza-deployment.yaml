@@ -30,8 +30,8 @@ spec:
           value: PASSWORD
         # Volumes im Container
         volumeMounts:
-        - mountPath: "/usr/www/html/myspace"
-          subPath: myspace
+        - mountPath: "/var/www/html/semesterarbeit/myapp"
+          subPath: myapp
           name: "web-storage"
       # Volumes in Host
       volumes:
