@@ -120,3 +120,52 @@ spec:
     requests:
       storage: 10Gi
 </pre>
+
+# 4. Deployment einrichten
+
+Damit mehrere Container erstellt und ein Loadbalancing inklusive ausfallsicherheit sichergestellt ist, wird ein Deployment eingerichtet:
+<pre>
+#flipza-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app.kubernetes.io/name: semesterarbeit
+  name: semesterarbeit
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: semesterarbeit
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: semesterarbeit    
+    spec:
+      containers:
+      - image: flipza/semesterarbeit:V0.1
+        imagePullPolicy: Always
+        name: semesterarbeit
+        env:
+        - name: DATABASE_HOST
+          value: localhost
+        - name: DATABASE_USER 
+          value: dbuser         
+        - name: DATABASE_NAME 
+          value: phplogin
+        - name: DATABASE_PASS 
+          value: PASSWORD
+        # Volumes im Container
+        volumeMounts:
+        - mountPath: "/var/www/html/semesterarbeit/myapp"
+          subPath: myapp
+          name: "web-storage"
+      # Volumes in Host
+      volumes:
+      - name: web-storage
+        persistentVolumeClaim:
+          claimName: data-claim
+</pre>
+
+# 5. Service konfigurieren
