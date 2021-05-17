@@ -20,15 +20,15 @@
 
 - kubectl exec --stdin --tty NameOfContainer -- /bin/bash
 
-## 1. Kubernetes Umgebung aufsetzen
+# 1. Kubernetes Umgebung aufsetzen
 
-# 1.1 Zuerst eine Virtuelle Maschine erstellen
+## 1.1 Zuerst eine Virtuelle Maschine erstellen
 
 - Cores: 2
 - RAM: 4096MB
 - Storage: 32GB
 
-# 1.2 Anschliessend kann mit folgender Cloud Init Konfiguration die Kubernetesumgebung erstellt werden:
+## 1.2 Anschliessend kann mit folgender Cloud Init Konfiguration die Kubernetesumgebung erstellt werden:
 
 <pre>
 #cloud-config
@@ -67,7 +67,7 @@ runcmd:
   - sudo apt-get -qq -y install fuse-overlayfs
  </pre>
 
-## 2. Dockerfile erstellen
+# 2. Dockerfile erstellen
 Für meine Semesterarbeit wird nur ein Webserver benötigt und die dafür erstellte Website:
 <pre>
 FROM php:7.0-apache
@@ -84,5 +84,39 @@ docker push flipza/semesterarbeit:V1.0
 </pre>
 
 
+# 3. Persistenz einrichten
+Damit allen Containern nach einem Rebuild alle Daten erhalten bleiben, werden wir persistente Volumes einrichten.
+Dies wird auf dem MAAS Controller eingerichtet und darauf zugegriffen:
+<pre>
+#persistent_volume.yaml
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: data-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data"
+</pre>
 
-## 3. 
+Für die einzelnen Container wird ein persistent Volume Claim eingerichtet:
+<pre>
+#pv_claim.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+</pre>
