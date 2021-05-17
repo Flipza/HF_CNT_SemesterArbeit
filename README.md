@@ -169,3 +169,53 @@ spec:
 </pre>
 
 # 5. Service konfigurieren
+Damit auf die Webapplikation zugegriffen weerden kann, muss die Applikation nach aussen geöffnet werden. Dies wird mit dem Service sichergestellt:
+<pre>
+#flipza-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: semesterarbeit
+  name: semesterarbeit
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app.kubernetes.io/name: semesterarbeit
+  type: LoadBalancer
+</pre>
+
+# 6. Reverse Proxy
+Damit der Service mit einer URL aufgerufen werden kann, benötigen wir einen Reverse Proxy, welcher die Portnummer auf einen Namen Mappt:
+<pre>
+#flipza-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: semesterarbeit
+  labels:
+    app: semesterarbeit
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /semesterarbeit/
+        pathType: Prefix
+        backend:
+          service:
+            name: semesterarbeit
+            port:
+              number: 80
+</pre>
+
+# 7. Rolling Update
+Um im betrieb ein Applikationsupdate gemacht werden kann, können wir folgendermassen vorgehen:
+<pre>
+sudo docker login
+docker build -t flipza/semesterarbeit:V0.3 .
+docker push flipza/semesterarbeit:V0.3
+kubectl set image deployment/semesterarbeit semesterarbeit=flipza/semesterarbeit:V0.3
+</pre>
