@@ -1,6 +1,6 @@
 # HF_CNT_SemesterArbeit
 
-Die wichtigsten kubectl-Subkommandos in der Übersicht
+## Die wichtigsten kubectl-Subkommandos in der Übersicht
 
 • kubectl cluster-info – Liefert Informationen zum K8s Cluster
 
@@ -15,4 +15,8 @@ Die wichtigsten kubectl-Subkommandos in der Übersicht
 • kubectl apply –f YAML – führt die Änderungen in der YAML im Cluster nach
 
 • kubectl delete -f YAML – Löscht eine Ressource laut YAML Datei/Verzeichnis
+
+### Eine Shell in einem laufenden container öffnen
+
+- kubectl exec --stdin --tty NameOfContainer -- /bin/bash
 
