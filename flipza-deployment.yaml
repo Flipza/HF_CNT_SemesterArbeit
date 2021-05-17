@@ -16,7 +16,7 @@ spec:
         app.kubernetes.io/name: semesterarbeit    
     spec:
       containers:
-      - image: flipza/semesterarbeit
+      - image: flipza/semesterarbeit:V0.1
         imagePullPolicy: Always
         name: semesterarbeit
         env:
