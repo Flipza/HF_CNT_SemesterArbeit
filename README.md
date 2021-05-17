@@ -69,6 +69,7 @@ runcmd:
 
 # 2. Dockerfile erstellen
 Für meine Semesterarbeit wird nur ein Webserver benötigt und die dafür erstellte Website:
+
 <pre>
 FROM php:7.0-apache
 RUN mkdir /var/www/html/semesterarbeit
@@ -77,6 +78,7 @@ COPY *.html /var/www/html/semesterarbeit/
 </pre>
 
 Anschliessend kann das Dockerimage gebuildet werden und auf Dockerhub raufgeladen werden:
+
 <pre>
 sudo docker login
 docker build -t flipza/semesterarbeit:V0.1 .
@@ -87,6 +89,7 @@ docker push flipza/semesterarbeit:V1.0
 # 3. Persistenz einrichten
 Damit allen Containern nach einem Rebuild alle Daten erhalten bleiben, werden wir persistente Volumes einrichten.
 Dies wird auf dem MAAS Controller eingerichtet und darauf zugegriffen:
+
 <pre>
 #persistent_volume.yaml
 kind: PersistentVolume
@@ -106,6 +109,7 @@ spec:
 </pre>
 
 Für die einzelnen Container wird ein persistent Volume Claim eingerichtet:
+
 <pre>
 #pv_claim.yaml
 kind: PersistentVolumeClaim
@@ -124,6 +128,7 @@ spec:
 # 4. Deployment einrichten
 
 Damit mehrere Container erstellt und ein Loadbalancing inklusive ausfallsicherheit sichergestellt ist, wird ein Deployment eingerichtet:
+
 <pre>
 #flipza-deployment.yaml
 apiVersion: apps/v1
@@ -170,6 +175,7 @@ spec:
 
 # 5. Service konfigurieren
 Damit auf die Webapplikation zugegriffen weerden kann, muss die Applikation nach aussen geöffnet werden. Dies wird mit dem Service sichergestellt:
+
 <pre>
 #flipza-service.yaml
 apiVersion: v1
@@ -190,6 +196,7 @@ spec:
 
 # 6. Reverse Proxy
 Damit der Service mit einer URL aufgerufen werden kann, benötigen wir einen Reverse Proxy, welcher die Portnummer auf einen Namen Mappt:
+
 <pre>
 #flipza-ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -213,6 +220,7 @@ spec:
 
 # 7. Rolling Update
 Um im betrieb ein Applikationsupdate gemacht werden kann, können wir folgendermassen vorgehen:
+
 <pre>
 sudo docker login
 docker build -t flipza/semesterarbeit:V0.3 .
