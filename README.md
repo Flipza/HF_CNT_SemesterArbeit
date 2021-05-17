@@ -65,7 +65,7 @@ runcmd:
   - sudo microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/APP_ServiceTool/main/persistentvolume.yaml
   - sudo microk8s kubectl apply -f https://raw.githubusercontent.com/mc-b/APP_ServiceTool/main/persistentvolumeclaim.yaml
   - sudo apt-get -qq -y install fuse-overlayfs
- </pre>
+</pre>
 
 # 2. Dockerfile erstellen
 Für meine Semesterarbeit wird nur ein Webserver benötigt und die dafür erstellte Website:
