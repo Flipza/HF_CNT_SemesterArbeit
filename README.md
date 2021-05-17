@@ -20,15 +20,15 @@
 
 - kubectl exec --stdin --tty NameOfContainer -- /bin/bash
 
-## Kubernetes Umgebung aufsetzen
+## 1. Kubernetes Umgebung aufsetzen
 
-# Zuerst eine Virtuelle Maschine erstellen
+# 1.1 Zuerst eine Virtuelle Maschine erstellen
 
 - Cores: 2
 - RAM: 4096MB
 - Storage: 32GB
 
-# Anschliessend kann mit folgender Cloud Init Konfiguration die Kubernetesumgebung erstellt werden:
+# 1.2 Anschliessend kann mit folgender Cloud Init Konfiguration die Kubernetesumgebung erstellt werden:
 
 <pre>
 #cloud-config
@@ -67,3 +67,22 @@ runcmd:
   - sudo apt-get -qq -y install fuse-overlayfs
  </pre>
 
+## 2. Dockerfile erstellen
+Für meine Semesterarbeit wird nur ein Webserver benötigt und die dafür erstellte Website:
+<pre>
+FROM php:7.0-apache
+RUN mkdir /var/www/html/semesterarbeit
+COPY *.css /var/www/html/semesterarbeit/
+COPY *.html /var/www/html/semesterarbeit/
+</pre>
+
+Anschliessend kann das Dockerimage gebuildet werden und auf Dockerhub raufgeladen werden:
+<pre>
+sudo docker login
+docker build -t flipza/semesterarbeit:V0.1 .
+docker push flipza/semesterarbeit:V1.0
+</pre>
+
+
+
+## 3. 
